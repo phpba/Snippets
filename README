@@ -1,0 +1,4 @@
+Pequenos códigos úteis
+
+- Relativetime: view helper para Zend Framework para traduzir datetime em unixtime para extenso.
+	@dependencia: Zend_Measure_Time
