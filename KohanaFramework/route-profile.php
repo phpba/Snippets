@@ -7,17 +7,25 @@
 
 //section of application/boostrap.php file
 
-Route::set('profiles', '<profile>(/<controller>(/<action>(/<id>)))')
+Route::set('profiles', '<profile>(/<controller>(/<action>(/<id>(/<stuff>))))', array(
+		'stuff' => '.*',
+	))
 	->filter(function($route, $params, $request)
     {
         // Find Profile
 		$user = ORM::factory('user')->where('username', '=', $params['profile'])->find();
-		//if user loaded is a valid route
+		
+		if($params['controller'] == 'Welcome')
+		{
+			$params['controller'] = 'Profile';
+			$params['action'] = 'show';
+		}
+		
 		return $user->loaded() ? $params : false;
     })
 	->defaults(array(
-		'controller' => 'Profile',
-		'action'     => 'show',
+		'controller' => 'Welcome',
+		'action'     => 'index',
 	));
 
 //Controller example
